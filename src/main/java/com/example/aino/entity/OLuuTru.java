@@ -12,32 +12,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "voucher")
+@Table(name = "o_luu_tru")
 @Entity
-public class Voucher {
+public class OLuuTru {
     @Id
     /*trường id cứ là số thì tự động tăng hết kẻo lại gặp lỗi phải đặt id trước khi persist (ko cần biết trong db có đặt
     identity hay là ko, còn ko phải số thì hoặc là đặt thủ công hoặc gọi ra từ api*/
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
-    @Column(name = "ma_voucher")
-    private String maVoucher;
-    //giảm giá theo tỷ lệ, từ 1~99% tương đương 0.01~0.99
-    @Column(name = "giam_gia", precision = 3, scale = 2)
-    private BigDecimal giamGia;
-    //áp dụng khi tổng giá trị hóa đơn sau khi làm tròn thành số nguyên và trước khi áp dụng bất cứ voucher nào khác >= con số này
-    @Column(name = "dieu_kien_ap_dung")
-    private Integer dieuKienApDung;
-    @Column(name = "thoi_gian_ap_dung")
-    private LocalDateTime thoiGianApDung;
+    @Column(name = "ma_so")
+    private Integer maSo;
+    @Column(name = "dung_luong")
+    private Integer dungLuong;
+    @Column(name = "loai_o_cung")
+    private String loaiOCung;
     @ManyToOne
-    @JoinColumn(name = "id_don_hang")
-    private DonHang donHang;
+    @JoinColumn(name = "id_sp")
+    private SanPham sanPham;
 }
